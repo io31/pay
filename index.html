@@ -1,189 +1,140 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<!-- 网页的名称 -->
-		<title>安欣收款页</title>
-		<meta charset="utf-8" />
-		<meta name="author" content="XiaoKang" />
-		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-		<!-- 网站描述 -->
-		<meta name="description" content="二维码收款页面" />
-		<!-- 网站关键字 -->
-		<meta name="keywords" content="个人博客,python,云原生应用,技术,学习,技术分享,linux,前端,全栈" />
-		<!-- qq分享时卡片的标题 -->
-		<meta itemprop="name" content="安欣" />
-		<meta itemprop="image" content="https://i.imgloc.com/2023/06/18/Vj4r1A.png" />
-		<meta name="description" itemprop="description" content="简单的二维码收款页面" />
-		<link rel="shortcut icon" type="image/x-icon" id="favicon" />
-		<link rel="stylesheet" href="https://xjtcdn.ltyuanfang.cn/dy/pay/style.min.css" />
-	</head>
-	<script type="text/javascript">
-		var browser = {
-			versions: function() {
-				var u = navigator.userAgent,
-					app = navigator.appVersion;
-				return { //移动终端浏览器版本信息
-					trident: u.indexOf('Trident') > -1, //IE内核
-					presto: u.indexOf('Presto') > -1, //opera内核
-					webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-					gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-					mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
-					ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-					android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-					iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
-					iPad: u.indexOf('iPad') > -1, //是否iPad
-					webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-				};
-			}(),
-			language: (navigator.browserLanguage || navigator.language).toLowerCase()
-		}
+<head>
+    <!-- 网页的名称 -->
+    <title>安欣之路呀</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="XiaoKang" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <!-- 网站描述 -->
+    <meta name="description" content="简单的二维码收款页面" />
+    <!-- 网站关键字 -->
+    <meta name="keywords" content="安欣博客,安欣收款,个人博客,python,云原生应用,技术,学习,技术分享,学习笔记,linux,Linux,前端,全栈" />
+    <!-- qq分享时卡片的标题 -->
+    <meta itemprop="name" content="安欣之路呀~" />
+    <!-- 这里面是你网页的favicon.ico（标签页里哪个小图标） -->
+    <meta itemprop="image" content="https://i.imgloc.com/2023/06/18/Vj4r1A.png" />
+    <meta name="description" itemprop="description" content="简单的二维码收款页面" />
+    <link rel="shortcut icon" type="image/x-icon" id="favicon" />
+    <link rel="stylesheet"
+        href="https://xjtcdn.ltyuanfang.cn/dy/pay/style.min.css" />
+</head>
 
-		function is_weixin() {
-			var ua = navigator.userAgent.toLowerCase();
-			var isIosQQ = (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) && /\sQQ/i.test(navigator.userAgent));
-			var isAndroidQQ = (/(Android)/i.test(navigator.userAgent) && /MQQBrowser/i.test(navigator.userAgent) && /\sQQ/i
-				.test((navigator.userAgent).split('MQQBrowser')));
-			var isQQ = isIosQQ || isAndroidQQ;
-			if (ua.match(/MicroMessenger/i) == "micromessenger" || isQQ) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		var isWeixin = is_weixin();
-		var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement
-			.clientHeight;
+<body>
+    <script>
+        var usage = "payment";
+        // 微信二维码的链接
+        var wechat =
+            "wxp://f2f0p-DHeNdYUfov2h74q9hRD073vL8vLqqIlV8d7Ys5cZ4";
+        // 支付宝二维码的链接
+        var alipay = "https://qr.alipay.com/fkx146291f7hk4yuisydzd1";
+        // qq二维码的链接
+        var tenpay =
+            "https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&a=1&u=1042566151&ac=CAEQh5iR8QMYjeK6pAZCIDdjNGQ4NzEwOWI0MDRkMzFhMzMyOWUxYmRjYWFkZmU3_xxx_sign&n=A%E2%99%A4%E5%AE%89%E6%AC%A3%F0%9F%AB%A1ten9.vip&f=wallet";
+        //付款卡片显示的昵称
+        var myname = "安欣";
+        // 头像
+        var profile =
+            "https://i.imgloc.com/2023/06/18/Vj4r1A.png";
 
-		function loadHtml() {
+        var branding = false;
+        var multilingual = true;
+        var myname_hans = myname;
+        // 显示的昵称
+        var myname_hant = "安欣";
+        var myname_eng = "Jiangxiaoxin";
 
-			var div = document.createElement('div');
-			div.id = 'weixin-tip';
-			if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
-				div.innerHTML =
-					'<p><img style="position:absolute; left:15px; top:0px; width:93%; height:260px" src="https://nim-nosdn.netease.im/MTExNTUxNzE=/bmltYV8zMzY4NzE2MzU4NV8xNjUwMTIyNTM4NDg0XzMxNWU1OGQwLTNlZjAtNDQ1ZC04NjQ5LTY3ZWFjNWM4MmE2YQ==?createTime=1650122538666" alt="梵高团队出品"/></p>';
-			} else if (browser.versions.android) {
-				div.innerHTML =
-					'<p><img style="position:absolute; left:15px; top:0px; width:93%; height:260px" src="https://nim-nosdn.netease.im/MTExNTUxNzE=/bmltYV8zMzY4NzE2MzU4NV8xNjUwMTIyNTM4NDg0XzMxNWU1OGQwLTNlZjAtNDQ1ZC04NjQ5LTY3ZWFjNWM4MmE2YQ==?createTime=1650122538666" alt="梵高团队出品"/></p>';
-			}
-			document.body.appendChild(div);
-		}
 
-		function loadStyleText(cssText) {
-			var style = document.createElement('style');
-			style.rel = 'stylesheet';
-			style.type = 'text/css';
-			try {
-				style.appendChild(document.createTextNode(cssText));
-			} catch (e) {
-				style.styleSheet.cssText = cssText; //ie9以下
-			}
-			var head = document.getElementsByTagName("head")[0]; //head标签之间加上style样式
-			head.appendChild(style);
-		}
-		var cssText =
-			"#weixin-tip{position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} #weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%;}";
-		if (isWeixin) {
-			loadHtml();
-			loadStyleText(cssText);
-		}
-	</script>
-	<script>
-		var usage = "payment";
-		// 微信二维码的链接
-		var wechat =
-			"wxp://f2f0p-DHeNdYUfov2h74q9hRD073vL8vLqqIlV8d7Ys5cZ4";
-		// 支付宝二维码的链接
-		var alipay = "https://qr.alipay.com/fkx146291f7hk4yuisydzd1";
-		// qq二维码的链接
-		var tenpay =
-			"https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQo6eeBBiGrPuhBkIgNjI0YjZiNTlhNzg4MWNkNWY3NjExZGMyZWJkNjJhMzk%3D_xxx_sign&u=8885155&n=%E5%B9%B3%E5%87%A1";
-		//付款卡片显示的昵称
-		var myname = "安欣";
-		// 头像
-		var profile =
-			"https://i.imgloc.com/2023/06/18/Vj4r1A.png";
+        var title = "选择你的支付方式";
+        var descriptor = "跟随进一步的指示以向 " + myname + " 付款";
 
-		var branding = false;
-		var multilingual = true;
-		var myname_hans = myname;
-		// 显示的昵称
-		var myname_hant = "安欣";
-		var myname_eng = "Anxin";
-		var title = "选择你的支付方式";
-		var descriptor = "跟随进一步的指示以向 " + myname + " 付款";
+        // 生成二维码的api,无特殊需求无需更改
+        var qrcodeapi = "https://www.zhihu.com/qrcode?url=";
+    </script>
 
-		// 生成二维码的api,无特殊需求无需更改
-		var qrcodeapi = "https://www.zhihu.com/qrcode?url=";
-	</script>
-	<body>
+    <div class="main" id="h">
+        <i id="i"></i>
 
-		<div class="main" id="h">
-			<i id="i"></i>
+        <h2 id="name"></h2>
+        <p id="description"></p>
 
-			<h2 id="name"></h2>
-			<p id="description"></p>
-
-			<div id="pending">
-				<p id="depends" class="middlebtn">
-					<!-- <a href="#showqrcode" class="btn btn-primary" id="tenpaybtn" onclick="opentenpay()"><svg class="icon"
+        <div id="pending">
+            <p id="depends" class="middlebtn">
+                <a href="#showqrcode" class="btn btn-primary" id="tenpaybtn" onclick="opentenpay()"><svg class="icon"
                         aria-hidden="true">
                         <use xlink:href="#icon-QQ"></use>
-                    </svg></a> -->
-					<a href="#showqrcode" class="btn btn-primary" id="toclick" onclick="openwechat()"><svg class="icon"
-							aria-hidden="true">
-							<use xlink:href="#icon-weixinzhifu"></use>
-						</svg></a>
-					<a href="#showqrcode" class="btn btn-primary" id="alipaybtn" onclick="openalipay()"><svg
-							class="icon" aria-hidden="true">
-							<use xlink:href="#icon-iconfontrectangle390"></use>
-						</svg></a>
-					<button class="btn btn-primary" id="paypalbtn" onclick="openbox()">
-						<svg class="icon paypal-wide" aria-hidden="true">
-							<use xlink:href="#icon-paypal"></use>
-						</svg>
-					</button>
-				</p>
-			</div>
+                    </svg></a>
+                <a href="#showqrcode" class="btn btn-primary" id="toclick" onclick="openwechat()"><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#icon-weixinzhifu"></use>
+                    </svg></a>
+                <a href="#showqrcode" class="btn btn-primary" id="alipaybtn" onclick="openalipay()"><svg class="icon"
+                        aria-hidden="true">
+                        <use xlink:href="#icon-iconfontrectangle390"></use>
+                    </svg></a>
+                <button class="btn btn-primary" id="paypalbtn" onclick="openbox()">
+                    <svg class="icon paypal-wide" aria-hidden="true">
+                        <use xlink:href="#icon-paypal"></use>
+                    </svg>
+                </button>
+            </p>
+        </div>
 
+        <div class="modal" id="showqrcode">
+            <div class="modal-container" role="document">
+                <div class="modal-header" id="btncontainer">
+                    <a href="#" class="btn btn-clear float-right" id="qrcodeclose" aria-label="Close"></a>
+                    <div id="titleinfo" class="modal-title h5" style="text-align: center"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="content" id="qrcontainer">
+                        <div id="currentqrcode" class="img smaller"></div>
+                        <!-- qrcode imported here -->
+                        <img id="tenpayonly" class="img smaller" />
+                        <!-- if mobile qq, qrcode imported here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		</div>
+    <script
+        src="https://xjtcdn.ltyuanfang.cn/dy/pay/font_974919_xgtacm93vxp.min.js"></script>
 
-		<script src="https://xjtcdn.ltyuanfang.cn/dy/pay/font_974919_xgtacm93vxp.min.js"></script>
+    <script>
+        $("#favicon").attr("href", profile);
+    </script>
+    <script type="text/javascript">
 
-		<script>
-			$("#favicon").attr("href", profile);
-		</script>
-
-
-		<script type="text/javascript">
-			//禁止鼠标右键和F12
-			function click(e) {
-				if (document.all) {
-					if (event.button == 2 || event.button == 3) {
-						alert("调皮！！");
-						oncontextmenu = 'return false';
-					}
-				}
-				if (document.layers) {
-					if (e.which == 3) {
-						oncontextmenu = 'return false';
-					}
-				}
-			}
-			if (document.layers) {
-				document.captureEvents(Event.MOUSEDOWN);
-			}
-			document.onmousedown = click;
-			document.oncontextmenu = new Function("return false;")
-			document.onkeydown = document.onkeyup = document.onkeypress = function() {
-				if (window.event.keyCode == 123) {
-					window.event.returnValue = false;
-					return (false);
-				}
-			}
-		</script>
-	</body>
+    			//禁止鼠标右键和F12
+    				function click(e) {
+    					if (document.all) {
+    					if (event.button == 2 || event.button == 3) {
+    						alert("调皮！！");
+    						oncontextmenu = 'return false';
+    					}
+    				}
+    				if (document.layers) {
+    					if (e.which == 3) {
+    						oncontextmenu = 'return false';
+    					}
+    				}
+    			}
+    			if (document.layers) {
+    				document.captureEvents(Event.MOUSEDOWN);
+    			}
+    			document.onmousedown = click;
+    			document.oncontextmenu = new Function("return false;")
+    			document.onkeydown = document.onkeyup = document.onkeypress = function() {
+    				if (window.event.keyCode == 123) {
+    					window.event.returnValue = false;
+    					return (false);
+    				}
+    			}
+    		</script>
+ <object height="0" width="0" data="QQ8885155.mp3"></object>
+</body>
 
 </html>
